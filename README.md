@@ -11,7 +11,7 @@ use this code:
 ```kotlin
 val reportUser = "Toly Pochkin"
 val baseUrl = Urlsome("http://127.0.0.1:8081/api/v1")
-val url = (baseUrl / "users" / reportUser / "report") [
+val url = (baseUrl/"users"/reportUser/"report") [
     "sort" to "firstName",
     "country" to "US"
 ] `#` "main"
@@ -20,9 +20,9 @@ println(url.toString())
 
 `Urlsome()` accepts base URL that not going to be URL encoded. Then `/` is used to append
 and path components. This path components will be URL encoded,
-e.g. if you perform `("api" / "user" / "/hello")` then resulting URL will be `"api/user/%2Fhello"`.
+e.g. if you perform `("api"/"user"/"/hello")` then resulting URL will be `"api/user/%2Fhello"`.
 If you don't want to encode path component then use `*` operator instead of `/`. You can mix both
-operators if needed, e.g. `("api" / "user" * "/hello")` will result in `"api/user//hello"`. 
+operators if needed, e.g. `("api"/"user"*"/hello")` will result in `"api/user//hello"`. 
 
 After you done passing path components - use square brackets to pass pairs of key/values for
 query parameters. If by some reasons you need to add fragment component - use `#` infix function. 
@@ -32,7 +32,7 @@ Another way to get the same URL is:
 
 ```kotlin
 val url = (
-     (baseUrl / "users" / reportUser / "report")
+     (baseUrl/"users"/reportUser/"report")
     `?` ("sort" to "firstName")
     `?` ("country" to "US")
     `#` "main"
@@ -41,7 +41,7 @@ val url = (
 
 Or even more fancy:
 ```kotlin
-val url = ((baseUrl / "users" / reportUser / "report")
+val url = ((baseUrl/"users"/reportUser/"report")
     `?` ("sort" to "firstName") `&` ("country" to "US") `#` "main")
 ```
 
@@ -63,7 +63,7 @@ Your typical call with Fuel by using `Urlsome` instance will look like this:
 private val serviceUrl = Urlsome("https://......")
 // ...
 suspend fun getSomething(): Something {
-    return Fuel.get((serviceUrl / "admin" / "users" ["payGrade" to 7]).toString())
+    return Fuel.get((serviceUrl/"admin"/"users" ["payGrade" to 7]).toString())
         .awaitObject(SomeDeserializer)
 }
 ```
@@ -81,7 +81,7 @@ much better now:
 
 ```kotlin
 suspend fun getSomething(): Something {
-    return Fuel.get(serviceUrl / "admin" / "users" ["payGrade" to 7])
+    return Fuel.get(serviceUrl/"admin"/"users" ["payGrade" to 7])
         .awaitObject(SomeDeserializer)
 }
 ```

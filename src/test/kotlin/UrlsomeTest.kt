@@ -10,27 +10,27 @@ class UrlsomeTest {
     }
 
     @Test fun `path components`() {
-        val url = Urlsome("http://localhost:8081") / "root" / "user"
+        val url = Urlsome("http://localhost:8081")/"root"/"user"
         assertEquals("http://localhost:8081/root/user", url.toString())
     }
 
     @Test fun `base URL with trailing slash`() {
-        val url = Urlsome("http://localhost:8081/") / "root" / "user"
+        val url = Urlsome("http://localhost:8081/")/"root"/"user"
         assertEquals("http://localhost:8081/root/user", url.toString())
     }
 
     @Test fun `path encoding`() {
-        val url = Urlsome("http://localhost:8081/") / "root" / "some/path" / "user"
+        val url = Urlsome("http://localhost:8081/")/"root"/"some/path"/"user"
         assertEquals("http://localhost:8081/root/some%2Fpath/user", url.toString())
     }
 
     @Test fun `path without encoding`() {
-        val url = Urlsome("http://localhost:8081/") / "root" * "some/path" / "user"
+        val url = Urlsome("http://localhost:8081/")/"root"*"some/path"/"user"
         assertEquals("http://localhost:8081/root/some/path/user", url.toString())
     }
 
     @Test fun `query components`() {
-        val url = (Urlsome("http://localhost:8081/") / "root") [
+        val url = (Urlsome("http://localhost:8081/")/"root") [
             "param1" to "value1",
             "param2" to "value2"
         ]
@@ -38,7 +38,7 @@ class UrlsomeTest {
     }
 
     @Test fun `query with null value on default options`() {
-        val url = (Urlsome("http://localhost:8081/") / "root") [
+        val url = (Urlsome("http://localhost:8081/")/"root") [
             "param1" to null,
             "param2" to "value2"
         ]
@@ -57,7 +57,7 @@ class UrlsomeTest {
     }
 
     @Test fun `query shorthand syntax`() {
-        val url = ((Urlsome("http://localhost:8081/") / "root")
+        val url = ((Urlsome("http://localhost:8081/")/"root")
             `?` ("param1" to "value1")
             `?` ("param2" to "value2")
         )
@@ -65,7 +65,7 @@ class UrlsomeTest {
     }
 
     @Test fun `fragment components`() {
-        val url = ((Urlsome("http://localhost:8081/") / "root")
+        val url = ((Urlsome("http://localhost:8081/")/"root")
             `?` ("param1" to "value1")
             `?` ("param2" to "value2")
             `#` ("x" to 1)
@@ -75,7 +75,7 @@ class UrlsomeTest {
     }
 
     @Test fun `fragment with null value on default option`() {
-        val url = ((Urlsome("http://localhost:8081/") / "root")
+        val url = ((Urlsome("http://localhost:8081/")/"root")
             `?` ("param1" to "value1")
             `?` ("param2" to "value2")
             `#` ("main" to null)
@@ -87,7 +87,7 @@ class UrlsomeTest {
         val url = ((
             Urlsome(
                 baseUrl = "http://localhost:8081/",
-                options = Urlsome.Options(excludeNullFragmentValues = true)) / "root"
+                options = Urlsome.Options(excludeNullFragmentValues = true))/"root"
             )
             `?` ("param1" to "value1")
             `?` ("param2" to "value2")

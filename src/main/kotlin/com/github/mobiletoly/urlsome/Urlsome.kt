@@ -33,7 +33,7 @@ import java.net.URLEncoder
  *
  * val userId = "Toly Pochkin"
  * val baseUrl = Urlsome("http://127.0.0.1:8081/api/v1")
- * val url = (baseUrl / "users" / userId / "report") [
+ * val url = (baseUrl/"users"/userId/"report") [
  *     "sort" to "firstName",
  *     "country" to "US"
  * ] `#` "main"
@@ -42,14 +42,14 @@ import java.net.URLEncoder
  *
  * val baseUrl = Urlsome("http://127.0.0.1:8081/api/v1")
  * val url = (
- *      (baseUrl / "users" / userId / "report")
+ *      (baseUrl/"users"/userId/"report")
  *     `?` ("sort" to "firstName")
  *     `?` ("country" to "US")
  *     `#` "main"
  * )
  *
  * or even be more fancy:
- * val url = ((baseUrl / "users" / userId / "report")
+ * val url = ((baseUrl/"users"/userId/"report")
  *     `?` ("sort" to "firstName") `&` ("country" to "US") `#` "main")
  */
 class Urlsome constructor(
