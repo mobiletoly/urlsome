@@ -59,7 +59,7 @@ of your favorite HTTP library by using extension functions to support `Urlsome` 
 For example, let's take a look at popular library called [Fuel](https://github.com/kittinunf/Fuel).
 Your typical call with Fuel by using `Urlsome` instance will look like this:
 
-```
+```kotlin
 private val serviceUrl = Urlsome("https://......")
 // ...
 suspend fun getSomething(): Something {
@@ -79,7 +79,7 @@ fun Fuel.Companion.post(url: Urlsome) = post(url.toString())
 
 much better now:
 
-```
+```kotlin
 suspend fun getSomething(): Something {
     return Fuel.get(serviceUrl / "admin" / "users" ["payGrade" to 7])
         .awaitObject(SomeDeserializer)
