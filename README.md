@@ -54,10 +54,10 @@ Take a look at [unit tests](src/test/kotlin/UrlsomeTest.kt) for more examples.
 # Usage with other libraries
 
 We don't really need integration with any of the existing HTTP libraries, by the end of the
-day `Urlsome` class always get transformed to `String`. But feel free to simplify your use
-of your favorite HTTP library by using extension functions to support Urlsome format
-E.g. let's take a look at popular library called [Fuel](https://github.com/kittinunf/Fuel).
-You typical call with Fuel for Urlsome URL will look like this:
+day `Urlsome` class always gets transformed to `String`. But feel free to simplify your use
+of your favorite HTTP library by using extension functions to support `Urlsome` instances.
+For example, let's take a look at popular library called [Fuel](https://github.com/kittinunf/Fuel).
+Your typical call with Fuel by using `Urlsome` instance will look like this:
 
 ```
 private val serviceUrl = Urlsome("https://......")
@@ -68,7 +68,7 @@ suspend fun getSomething(): Something {
 }
 ```
 
-This is boring, since you have to add up that `.toString()` call all the time. Just create
+This is boring since you have to append `.toString()` call all the time. So just create
 a few extension functions instead, e.g.
 
 ```kotlin
