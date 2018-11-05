@@ -50,3 +50,38 @@ parameters, but `&` a little more readable when passing multiple parameters, bec
 like a typical query parameters separator.
 
 Take a look at [unit tests](src/test/kotlin/UrlsomeTest.kt) for more examples.
+
+# Usage with other libraries
+
+We don't really need integration with any of the existing HTTP libraries, by the end of the
+day `Urlsome` class always get transformed to `String`. But feel free to simplify your use
+of your favorite HTTP library by using extension functions to support Urlsome format
+E.g. let's take a look at popular library called [Fuel](https://github.com/kittinunf/Fuel).
+You typical call with Fuel for Urlsome URL will look like this:
+
+```
+private val serviceUrl = Urlsome("https://......")
+// ...
+suspend fun getSomething(): Something {
+    return Fuel.get((serviceUrl / "admin" / "users" ["payGrade" to 7]).toString())
+        .awaitObject(SomeDeserializer)
+}
+```
+
+This is boring, since you have to add up that `.toString()` call all the time. Just create
+a few extension functions instead, e.g.
+
+```kotlin
+fun Fuel.Companion.get(url: Urlsome) = get(url.toString())
+fun Fuel.Companion.post(url: Urlsome) = post(url.toString())
+// ...
+```
+
+much better now:
+
+```
+suspend fun getSomething(): Something {
+    return Fuel.get(serviceUrl / "admin" / "users" ["payGrade" to 7])
+        .awaitObject(SomeDeserializer)
+}
+```
