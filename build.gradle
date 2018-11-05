@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.github.mobiletoly'
-version 'master-SNAPSHOT'
+version '0.1'
 
 repositories {
     mavenCentral()
