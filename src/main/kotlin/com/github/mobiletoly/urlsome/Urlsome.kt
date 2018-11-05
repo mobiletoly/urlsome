@@ -6,8 +6,9 @@ import java.net.URLEncoder
  * Hassle-free URL builder for Kotlin.
  *
  * [baseUrl] used as it is, it will not be encoded.
- * [paths] - list of path components. Be aware that components will be encoded, e.g. if your path "/hello" - it
- * will be encoded to "%2Fhello".
+ * [paths] - list of path components. Be aware that components will be encoded if you use "/" operator,
+ * e.g. if you perform ("user" / "/hello") then resulting URL will be "user/%2Fhello". If you don't want
+ * to encode path components - use "*" operator instead, e.g. ("user * "/hello") will result in "user//hello".
  * [queries] - list of query components. Will be properly encoded.
  *
  * For example to get this URL:
@@ -53,9 +54,13 @@ class Urlsome constructor(
         fragments = emptyList()
     )
 
-    operator fun div(path: String) = appendPath(path)
-    operator fun div(paths: Collection<String>) = appendPath(*paths.toTypedArray())
-    operator fun div(paths: Array<String>) = appendPath(*paths)
+    operator fun div(path: String) = appendPath(path, encode = true)
+    operator fun div(paths: Collection<String>) = appendPath(*paths.toTypedArray(), encode = true)
+    operator fun div(paths: Array<String>) = appendPath(*paths, encode = true)
+
+    operator fun times(path: String) = appendPath(path, encode = false)
+    operator fun times(paths: Collection<String>) = appendPath(*paths.toTypedArray(), encode = false)
+    operator fun times(paths: Array<String>) = appendPath(*paths, encode = false)
 
     operator fun get(params: Collection<Pair<String, Any?>>) = appendQuery(*params.toTypedArray())
     operator fun get(vararg params: Pair<String, Any?>) = appendQuery(*params)
@@ -72,10 +77,16 @@ class Urlsome constructor(
     infix fun `#`(params: Map<String, Any?>) = appendFragment(*params.toList().toTypedArray())
     infix fun `#`(param: String) = appendFragment(param to null)
 
-    fun appendPath(vararg path: String) = Urlsome(
+    fun appendPath(vararg path: String, encode: Boolean = true) = Urlsome(
         baseUrl = this.baseUrl,
         options = this.options,
-        paths = this.paths + path,
+        paths = this.paths + path.map {
+            if (encode) {
+                URLEncoder.encode(it, "UTF-8")
+            } else {
+                it
+            }
+        },
         queries = this.queries,
         fragments = this.fragments
     )
@@ -119,7 +130,7 @@ class Urlsome constructor(
         if (! sb.endsWith('/') && paths.isNotEmpty()) {
             sb.append('/')
         }
-        sb.append(paths.joinToString("/") { URLEncoder.encode(it, "UTF-8") })
+        sb.append(paths.joinToString("/") { it })
         return sb.toString()
     }
 

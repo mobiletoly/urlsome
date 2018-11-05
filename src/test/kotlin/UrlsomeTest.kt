@@ -24,6 +24,11 @@ class UrlsomeTest {
         assertEquals("http://localhost:8081/root/some%2Fpath/user", url.toString())
     }
 
+    @Test fun `path without encoding`() {
+        val url = Urlsome("http://localhost:8081/") / "root" * "some/path" / "user"
+        assertEquals("http://localhost:8081/root/some/path/user", url.toString())
+    }
+
     @Test fun `query components`() {
         val url = (Urlsome("http://localhost:8081/") / "root") [
             "param1" to "value1",
