@@ -14,6 +14,11 @@ class UrlsomeTest {
         assertEquals("http://localhost:8081/root/user", url.toString())
     }
 
+    @Test fun `nonstring path components`() {
+        val url = Urlsome("http://localhost:8081")/"root"/"user"/12
+        assertEquals("http://localhost:8081/root/user/12", url.toString())
+    }
+
     @Test fun `base URL with trailing slash`() {
         val url = Urlsome("http://localhost:8081/")/"root"/"user"
         assertEquals("http://localhost:8081/root/user", url.toString())

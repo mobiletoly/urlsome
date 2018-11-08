@@ -70,13 +70,13 @@ class Urlsome constructor(
         fragments = emptyList()
     )
 
-    operator fun div(path: String) = appendPath(path, encode = true)
-    operator fun div(paths: Collection<String>) = appendPath(*paths.toTypedArray(), encode = true)
-    operator fun div(paths: Array<String>) = appendPath(*paths, encode = true)
+    operator fun div(path: Any) = appendPath(path, encode = true)
+    operator fun div(paths: Collection<Any>) = appendPath(*paths.toTypedArray(), encode = true)
+    operator fun div(paths: Array<Any>) = appendPath(*paths, encode = true)
 
-    operator fun times(path: String) = appendPath(path, encode = false)
-    operator fun times(paths: Collection<String>) = appendPath(*paths.toTypedArray(), encode = false)
-    operator fun times(paths: Array<String>) = appendPath(*paths, encode = false)
+    operator fun times(path: Any) = appendPath(path, encode = false)
+    operator fun times(paths: Collection<Any>) = appendPath(*paths.toTypedArray(), encode = false)
+    operator fun times(paths: Array<Any>) = appendPath(*paths, encode = false)
 
     operator fun get(params: Collection<Pair<String, Any?>>) = appendQuery(*params.toTypedArray())
     operator fun get(vararg params: Pair<String, Any?>) = appendQuery(*params)
@@ -93,14 +93,14 @@ class Urlsome constructor(
     infix fun `#`(params: Map<String, Any?>) = appendFragment(*params.toList().toTypedArray())
     infix fun `#`(param: String) = appendFragment(param to null)
 
-    fun appendPath(vararg path: String, encode: Boolean = true) = Urlsome(
+    fun appendPath(vararg path: Any, encode: Boolean = true) = Urlsome(
         baseUrl = this.baseUrl,
         options = this.options,
         paths = this.paths + path.map {
             if (encode) {
-                URLEncoder.encode(it, "UTF-8")
+                URLEncoder.encode(it.toString(), "UTF-8")
             } else {
-                it
+                it.toString()
             }
         },
         queries = this.queries,
