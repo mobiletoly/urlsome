@@ -1,6 +1,25 @@
 # URLSome
 URLSome - URL builder library for Kotlin
 
+# Add to gradle build
+
+The easiest way to add this library to your gradle build is to use [jitpack](https://jitpack.io/)
+
+```
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://jitpack.io' }
+    // ...
+}
+
+dependencies {
+    // ...
+    implementation group: "com.github.mobiletoly", name: "urlsome", version: "0.2"
+}
+
+```
+
 # How to use
 
 To build this URL:
@@ -85,22 +104,3 @@ suspend fun getSomething(): Something {
         .awaitObject(SomeDeserializer)
 }
 ```
-
-# Add to gradle build
-
-The easiest way to add this library to your gradle build is to use [jitpack](https://jitpack.io/)
-
-```
-repositories {
-    mavenCentral()
-    jcenter()
-    maven { url 'https://jitpack.io' }
-    // ...
-}
-
-dependencies {
-    // ...
-    implementation group: "com.github.mobiletoly", name: "urlsome", version: "0.1"
-}
-
-``` 
