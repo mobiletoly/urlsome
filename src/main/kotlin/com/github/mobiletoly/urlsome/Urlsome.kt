@@ -1,5 +1,5 @@
 /*
-   Copyright 2018 by Toly Pochkin
+   Copyright 2018, 2019 by Toly Pochkin
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package com.github.mobiletoly.urlsome
 
+import java.net.URI
 import java.net.URLEncoder
 
 /**
@@ -124,6 +125,8 @@ class Urlsome constructor(
     )
 
     override fun toString() = build()
+
+    fun toURI(): URI = URI.create(toString())
 
     private fun build(): String {
         val fullPath = concatPathComponents()
