@@ -128,6 +128,8 @@ class Urlsome constructor(
 
     fun toURI(): URI = URI.create(toString())
 
+    fun toURL() = toURI().toURL()
+
     private fun build(): String {
         val fullPath = concatPathComponents()
         val fullQuery = concatComponents(components = this.queries, excludeNullValues = options.excludeNullQueryValues)

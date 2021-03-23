@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
     // ...
-    implementation group: "com.github.mobiletoly", name: "urlsome", version: "0.3-SNAPSHOT"
+    implementation group: "com.github.mobiletoly", name: "urlsome", version: "0.4-SNAPSHOT"
 }
 
 ```
